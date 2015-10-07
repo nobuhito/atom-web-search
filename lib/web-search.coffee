@@ -49,7 +49,7 @@ module.exports = WebSearch =
     text = if e.getSelectedText().length > 0 then e.getSelectedText() else "atom-web-search"
     position = atom.config.get("web-search.browser.position")
     params = {
-      url: webservice.replace("$q$", text),
+      url: webservice.replace("$q$", encodeURIComponent(text)),
       size: atom.config.get("web-search.browser.size"),
       useragent: atom.config.get("web-search.browser.useragent"),
       position: position
