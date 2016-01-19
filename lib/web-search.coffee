@@ -31,7 +31,7 @@ module.exports = WebSearch =
           type: "string"
           description: "Additional styles."
           # http://www.dtp-transit.jp/misc/web/post_1881.html
-          default: "*{font-family: font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif; !important;}"
+          default: "*{font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif !important;}"
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
