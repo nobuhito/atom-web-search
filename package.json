@@ -1,7 +1,7 @@
 {
   "name": "web-search",
   "main": "./lib/web-search",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Web search for Selected text in mobile view.",
   "keywords": [],
   "activationCommands": {
