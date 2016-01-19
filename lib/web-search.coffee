@@ -27,6 +27,11 @@ module.exports = WebSearch =
           type: "string"
           description: "default is iOS9 for iPhone."
           default: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_0 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A344 Safari/601.1"
+        styles:
+          type: "string"
+          description: "Additional styles."
+          # http://www.dtp-transit.jp/misc/web/post_1881.html
+          default: "*{font-family: font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif; !important;}"
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
@@ -60,6 +65,10 @@ module.exports = WebSearch =
       when "right"  then atom.workspace.addRightPanel(item: @webSearchBrowserView)
       when "bottom" then atom.workspace.addBottomPanel(item: @webSearchBrowserView)
       when "left"   then atom.workspace.addLeftPanel(item: @webSearchBrowserView)
+
+    # http://qiita.com/from_kyushu/items/3f818a80ba7e58d356dc
+    @browserPanel.item.webview.on "dom-ready", ->
+      this.insertCSS atom.config.get("web-search.browser.styles")
 
   deactivate: ->
     @modalPanel.destroy()
