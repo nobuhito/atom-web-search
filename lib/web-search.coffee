@@ -78,9 +78,9 @@ module.exports = WebSearch =
     @webSearchBrowserView.destroy()
 
   panelHide: ->
-    @modalPanel?.hide()
+    @modalPanel?.destroy()
     @modalPanel = null
 
   browserHide: ->
-    @browserPanel?.hide()
+    @browserPanel?.destroy()
     @browserPanel = null
