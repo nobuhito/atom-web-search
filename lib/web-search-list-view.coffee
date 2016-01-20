@@ -10,8 +10,12 @@ class WebSearchListView extends SelectListView
 
  confirmed: (item) ->
    @self.search(item)
+   @cancel()
    console.log("#{item} was selected")
 
  cancelled: ->
    @self.panelHide()
    console.log("This view was cancelled")
+
+ destroy: ->
+   @cancel()
