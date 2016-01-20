@@ -8,6 +8,8 @@ module.exports = WebSearch =
   modalPanel: null
   browserPanel: null
   subscriptions: null
+  # http://superuser.com/questions/206229/how-to-make-a-blank-page-in-google-chrome-at-start-up
+  newPage: "chrome://newtab"
 
   config:
     webservice:
@@ -37,11 +39,16 @@ module.exports = WebSearch =
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'web-search:search': => @openPanel()
 
+    atom.config.onDidChange 'web-search.browser.position', () => @browserPanelRefresh()
+    atom.config.onDidChange 'web-search.browser.size', () => @browserPanelRefresh()
+    atom.config.onDidChange 'web-search.browser.useragent', () => @browserPanelRefresh()
+
   openPanel: ->
     e = atom.workspace.getActiveTextEditor()
     return unless e?
     @browserHide()
-    @WebSearchListView = new WebSearchListView(this)
+    if @WebSearchListView is null
+      @WebSearchListView = new WebSearchListView(this)
     @modalPanel ?= atom.workspace.addModalPanel(item: @WebSearchListView)
     @modalPanel.show()
     @WebSearchListView.focusFilterEditor()
@@ -52,6 +59,24 @@ module.exports = WebSearch =
     e = atom.workspace.getActiveTextEditor()
     return unless e?
     text = if e.getSelectedText().length > 0 then e.getSelectedText() else "atom-web-search"
+
+    if @browserPanel is null
+      @addWebview(webservice, text)
+
+    else
+      @webSearchBrowserView.setURL(@newPage)
+      setTimeout ( => @browserPanel.show()), 100
+      setTimeout =>
+        @webSearchBrowserView.setURL(webservice.replace("$q$", encodeURIComponent(text)))
+      , 100
+
+  browserPanelRefresh: () ->
+    @browserHide()
+    @browserPanel.destroy()
+    @browserPanel = null
+
+
+  addWebview: (webservice, text) ->
     position = atom.config.get("web-search.browser.position")
     params = {
       url: webservice.replace("$q$", encodeURIComponent(text)),
@@ -59,6 +84,7 @@ module.exports = WebSearch =
       useragent: atom.config.get("web-search.browser.useragent"),
       position: position
     }
+
     @webSearchBrowserView = new WebSearchBrowserView(params, this)
     @browserPanel = switch position
       when "top"    then atom.workspace.addTopPanel(item: @webSearchBrowserView)
@@ -79,8 +105,6 @@ module.exports = WebSearch =
 
   panelHide: ->
     @modalPanel?.hide()
-    @modalPanel = null
 
   browserHide: ->
     @browserPanel?.hide()
-    @browserPanel = null

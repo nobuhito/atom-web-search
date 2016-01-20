@@ -20,3 +20,6 @@ class WebSearchBrowserView extends View
       @webview[0].goBack()
     @forward.on "click", =>
       @webview[0].goForward()
+
+  setURL: (url) ->
+    @webview.attr("src", url)
