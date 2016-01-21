@@ -11,29 +11,29 @@ module.exports = WebSearch =
   # http://superuser.com/questions/206229/how-to-make-a-blank-page-in-google-chrome-at-start-up
   newPage: "chrome://newtab"
 
-  config:
-    webservice:
-      type: "array"
-      default: ["http://google.com/search?q=$q$","http://wikipedia.org/wiki/$q$"]
-    browser:
-      type: "object"
-      properties:
-        position:
-          default: "right"
-          type: "string"
-          enum: ["top", "right", "bottom", "left"]
-        size:
-          type: "integer"
-          default: 450
-        useragent:
-          type: "string"
-          description: "default is iOS9 for iPhone."
-          default: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_0 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A344 Safari/601.1"
-        styles:
-          type: "string"
-          description: "Additional styles."
-          # http://www.dtp-transit.jp/misc/web/post_1881.html
-          default: "*{font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif !important;}"
+  # config:
+  #   browser:
+  #     type: "object"
+  #     properties:
+  #       position:
+  #         default: "right"
+  #         type: "string"
+  #         enum: ["top", "right", "bottom", "left"]
+  #       size:
+  #         type: "integer"
+  #         default: 450
+  #       useragent:
+  #         type: "string"
+  #         description: "default is iOS9 for iPhone."
+  #         default: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_0 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A344 Safari/601.1"
+  #       styles:
+  #         type: "string"
+  #         description: "Additional styles."
+  #         # http://www.dtp-transit.jp/misc/web/post_1881.html
+  #         default: "*{font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif !important;}"
+  #   webservice:
+  #     type: "array"
+  #     default: ["http://google.com/search?q=$q$","http://wikipedia.org/wiki/$q$"]
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable

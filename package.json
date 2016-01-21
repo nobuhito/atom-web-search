@@ -1,5 +1,35 @@
 {
   "name": "web-search",
+  "configSchema": {
+      "browser": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "default": "right",
+            "type": "string",
+            "enum": ["top", "right", "bottom", "left"]
+          },
+          "size": {
+            "type": "integer",
+            "default": 450
+          },
+          "useragent": {
+            "type": "string",
+            "description": "default is iOS9 for iPhone.",
+            "default": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_0 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A344 Safari/601.1"
+          },
+          "styles": {
+            "type": "string",
+            "description": "Additional styles.",
+            "default": "*{font-family: Verdana, \"游ゴシック\", YuGothic, \"ヒラギノ角ゴ ProN W3\", \"Hiragino Kaku Gothic ProN\", \"メイリオ\", Meiryo, sans-serif !important;} /* http://www.dtp-transit.jp/misc/web/post_1881.html */"
+          }
+        }
+      },
+      "webservice": {
+        "type": "array",
+        "default": ["http://google.com/search?q=$q$","http://wikipedia.org/wiki/$q$"]
+      }
+  },
   "main": "./lib/web-search",
   "version": "0.3.0",
   "description": "Web search for Selected text in mobile view.",
