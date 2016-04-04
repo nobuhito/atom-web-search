@@ -4,13 +4,19 @@ class WebSearchBrowserView extends View
   @content: (params, self) ->
     p = params.position
     s = params.size
-    style = if ["top", "bottom"].indexOf(p) > -1 then "width:100%;height:#{s}px" else "height:100%;width:#{s}px"
-    @div style:style, =>
-      @div class:"web-search inline",  =>
+    style = if ["top", "bottom"].indexOf(p) > -1 then "height:#{s}px" else "width:#{s}px"
+    @div id:"webSearch", style:style, =>
+      @div id:"webSearchBar", class:"web-search inline-block",  =>
         @button "◀", outlet:"back", style:"float:left", class:"btn"
         @button "▶", outlet:"forward", style:"float:left", class:"btn"
         @button "close", outlet:"close", style:"float:right", class:"btn"
-      @tag "webview", src:"#{params.url}", useragent:"#{params.useragent}", outlet:"webview"
+      @div =>
+        @tag "webview", class:"inline-block native-key-bindings", src:"#{params.url}", useragent:"#{params.useragent}", outlet:"webview"
+
+  attached: (onDom) ->
+    @webview
+      .height($("#webSearch").height() - $("#webSearchBar").height())
+      .width($("#webSearch").width())
 
   initialize: (params, self) ->
     @self = self
