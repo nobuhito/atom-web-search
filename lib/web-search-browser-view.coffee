@@ -11,7 +11,7 @@ class WebSearchBrowserView extends View
         @button "▶", outlet:"forward", style:"float:left", class:"btn"
         @button "close", outlet:"close", style:"float:right", class:"btn"
       @div =>
-        @tag "webview", class:"inline-block native-key-bindings", src:"#{params.url}", useragent:"#{params.useragent}", outlet:"webview"
+        @tag "webview", class:"block native-key-bindings", src:"#{params.url}", useragent:"#{params.useragent}", outlet:"webview"
 
   attached: (onDom) ->
     @webview
