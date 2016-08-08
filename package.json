@@ -39,7 +39,7 @@
     }
   },
   "main": "./lib/web-search",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Web search for Selected text in mobile view.",
   "keywords": [],
   "activationCommands": {
